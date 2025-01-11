@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .post-form input, .post-form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .post-form button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4285f4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .post-form button:hover {
+            background-color: #357ae8;
+        }
+        .posts {
+            display: flex;
+            flex-direction: column;
+        }
+        .post {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="post-form">
+            <input type="text" id="title" placeholder="Title">
+            <textarea id="content" placeholder="Content"></textarea>
+            <input type="file" id="image">
+            <button onclick="addPost()" id="addbtn" class="button">Add Post</button>
+        </div>
+        <div class="posts" id="posts"></div>
+        <button onclick="deletePost()" id="delbtn" class="hidden">Delete</button>
+    </div>
+
+    <script>
+        function addPost() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const imageInput = document.getElementById('image');
+            const postsContainer = document.getElementById('posts');
+
+            if (title || content) {
+                const post = document.createElement('div');
+                post.className = 'post';
+
+                const postTitle = document.createElement('h2');
+                postTitle.textContent = title;
+                post.appendChild(postTitle);
+
+                const postContent = document.createElement('p');
+                postContent.textContent = content;
+                post.appendChild(postContent);
+
+                if (imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const postImage = document.createElement('img');
+                        postImage.src = e.target.result;
+                        post.appendChild(postImage);
+                    }
+                    reader.readAsDataURL(imageInput.files[0]);
+                }
+
+                postsContainer.appendChild(post);
+
+                
+                document.getElementById('title').value = '';
+                document.getElementById('content').value = '';
+                document.getElementById('image').value = '';
+
+                
+                toggleButton();
+            } else {
+                alert('Please fill in both the title or content.');
+            }
+        }
+
+        function toggleButton() {
+            const delbtn = document.getElementById('delbtn');
+            delbtn.classList.remove("hidden");
+        }
+
+        function deletePost() {
+            const postsContainer = document.getElementById('posts');
+            if (postsContainer.lastChild) {
+                postsContainer.removeChild(postsContainer.lastChild);
+            }
+        }
+    </script>
+</body>
+</html>
