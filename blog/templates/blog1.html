@@ -76,7 +76,7 @@
         #signin:hover {
             background-color: #357ae8;
         }
-        
+
     </style>
 </head>
 <body>
@@ -84,7 +84,7 @@
         <div class="post-form">
             <input type="text" id="title" placeholder="Title">
             <textarea id="content" placeholder="Content"></textarea>
-            <input type="file" id="image">
+            <input type="file" id="file-upload" name="file">
             <button onclick="addPost()" id="addbtn" class="button">Add Post</button>
         </div>
         <div class="posts" id="posts"></div>
@@ -95,7 +95,7 @@
         function addPost() {
             const title = document.getElementById('title').value;
             const content = document.getElementById('content').value;
-            const imageInput = document.getElementById('image');
+            const imageInput = document.getElementById('file-upload');
             const postsContainer = document.getElementById('posts');
 
             if (title || content) {
@@ -125,12 +125,12 @@
                 
                 document.getElementById('title').value = '';
                 document.getElementById('content').value = '';
-                document.getElementById('image').value = '';
+                document.getElementById('file-upload').value = '';
 
                 
                 toggleButton();
             } else {
-                alert('Please fill in both the title or content.');
+                alert('Please fill in the title or content.');
             }
         }
 

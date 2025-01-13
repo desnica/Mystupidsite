@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,16 +43,21 @@
         .post-form button:hover {
             background-color: #357ae8;
         }
+        
         </style>
         
     </head>
     <body>
-        <div class="container">
-            <div class="post-form">
-                <input type="text" id="user" placeholder="Username">
-                <input type="text" id="password" placeholder="Password">
-                <button onclick="Signin()" id="signbtn" class="button">Sign in</button>
+        <form action="" method=POST>
+            {% csrf_token %}
+            <div class="container">
+               
+                <div class="post-form">
+                    <input type="text" placeholder="Username" name="username">
+                    <input type="password" name="password" placeholder="Password">
+                    <button type="sibmit" id="signbtn" class="button">Sign in</button>
+                </div>
             </div>
-        </div>
+        </form>
     </body>
 </html>
